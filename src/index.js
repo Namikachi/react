@@ -4,13 +4,16 @@ import './index.css';
 // import App from './App';
 import HelloWorld from './HelloWorld';
 import IntroducingJsx from './IntroducingJsx';
+import ComponentsAndProps from './ComponentsAndProps';
 import reportWebVitals from './reportWebVitals';
 
+// To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
     <HelloWorld />
     <div>{IntroducingJsx}</div>
+    <ComponentsAndProps />
   </>
   // <React.StrictMode>
   //   <App />
