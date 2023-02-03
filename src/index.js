@@ -5,6 +5,7 @@ import './index.css';
 import HelloWorld from './HelloWorld';
 import IntroducingJsx from './IntroducingJsx';
 import ComponentsAndProps from './ComponentsAndProps';
+import StateAndLifecycle from './StateAndLifecycle';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -14,6 +15,7 @@ root.render(
     <HelloWorld />
     <div>{IntroducingJsx}</div>
     <ComponentsAndProps />
+    <StateAndLifecycle />
   </>
   // <React.StrictMode>
   //   <App />
