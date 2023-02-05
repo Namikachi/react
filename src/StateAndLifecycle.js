@@ -1,4 +1,5 @@
 // ■ State is similar to props, but it is private and fully controlled by the component.
+// Components need to “remember” things: the current input value, the current image, the shopping cart. In React, this kind of component-specific memory is called state.
 
 // ----- before -----
 //	- We call root.render() to change the rendered output
@@ -94,4 +95,5 @@ export default StateAndLifecycle
 //	2. A state setter function to update the variable and trigger React to render the component again.
 // In React, useState, as well as any other function starting with ”use”, is called a Hook.
 // Hooks are special functions that are only available while React is rendering (which we’ll get into in more detail on the next page). 
+
 
