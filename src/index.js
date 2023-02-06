@@ -6,16 +6,24 @@ import HelloWorld from './HelloWorld';
 import IntroducingJsx from './IntroducingJsx';
 import ComponentsAndProps from './ComponentsAndProps';
 import StateAndLifecycle from './StateAndLifecycle';
+import HandlingEvents from './HandlingEvents';
+import ListsAndKeys from './ListsAndKeys';
+import ConditionalRendering from './ConditionalRendering';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const numbers = [1,2,3,4];
+
 root.render(
   <>
     <HelloWorld />
     <div>{IntroducingJsx}</div>
     <ComponentsAndProps />
     <StateAndLifecycle />
+    <HandlingEvents />
+    <ListsAndKeys numbers={numbers} />
+    <ConditionalRendering />
   </>
   // <React.StrictMode>
   //   <App />
