@@ -9,6 +9,7 @@ import StateAndLifecycle from './StateAndLifecycle';
 import HandlingEvents from './HandlingEvents';
 import ListsAndKeys from './ListsAndKeys';
 import ConditionalRendering from './ConditionalRendering';
+import Forms from './Forms';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -23,6 +24,7 @@ root.render(
     <StateAndLifecycle />
     <HandlingEvents />
     <ListsAndKeys numbers={numbers} />
+    <Forms />
     <ConditionalRendering />
   </>
   // <React.StrictMode>
