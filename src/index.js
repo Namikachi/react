@@ -10,6 +10,9 @@ import HandlingEvents from './HandlingEvents';
 import ListsAndKeys from './ListsAndKeys';
 import ConditionalRendering from './ConditionalRendering';
 import Forms from './Forms';
+import LiftingStateUp from './LiftingStateUp';
+import CompositionVsInheritance from './CompositionVsInheritance';
+import ThinkingInReact from './ThinkingInReact';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -18,14 +21,19 @@ const numbers = [1,2,3,4];
 
 root.render(
   <>
-    <HelloWorld />
-    <div>{IntroducingJsx}</div>
-    <ComponentsAndProps />
-    <StateAndLifecycle />
-    <HandlingEvents />
-    <ListsAndKeys numbers={numbers} />
-    <Forms />
-    <ConditionalRendering />
+    <React.StrictMode>
+      <HelloWorld />
+      <div>{IntroducingJsx}</div>
+      <ComponentsAndProps />
+      <StateAndLifecycle />
+      <HandlingEvents />
+      <ListsAndKeys numbers={numbers} />
+      <Forms />
+      <LiftingStateUp />
+      <CompositionVsInheritance />
+      <ConditionalRendering />
+      <ThinkingInReact />
+    </React.StrictMode>
   </>
   // <React.StrictMode>
   //   <App />
