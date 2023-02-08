@@ -43,7 +43,7 @@ function TemperatureInput(props) {
 	return (
 		<fieldset>
 			<legend>Enter temperature in {scaleNames[scale]}:</legend>
-			<input value={temperature} onChange={e => props.onTemperatureChange(e.target.value)} />
+			<input value={temperature} onChange={e => props.onTemperatureChange({scale: scale, temperature: e.target.value})} />
 		</fieldset>
 	)
 }
@@ -59,11 +59,11 @@ function LiftingStateUp() {
 			<TemperatureInput
 				scale="c"
 				temperature={celsius}
-				onTemperatureChange={(temperature) => setState({scale: 'c', temperature})} />
+				onTemperatureChange={setState} />
 			<TemperatureInput
 				scale="f"
 				temperature={fahrenheit}
-				onTemperatureChange={(temperature) => setState({scale: 'f', temperature})} />
+				onTemperatureChange={setState} />
 			<BoilingVerdict
 				celsius={parseFloat(celsius)} />
 		</div>

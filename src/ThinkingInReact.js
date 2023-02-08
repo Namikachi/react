@@ -130,8 +130,8 @@ function ThinkingInReact() {
 			<SearchBar
 				filterText={filterText}
 				inStockOnly={inStockOnly}
-				onFilterTextChange={(filterText) => setFilterText(filterText)}
-				onInStockChange={(inStockOnly) => setInStockOnly(inStockOnly)}
+				onFilterTextChange={setFilterText}
+				onInStockChange={setInStockOnly}
 			/>
 			<ProductTable
 				products={PRODUCTS}
