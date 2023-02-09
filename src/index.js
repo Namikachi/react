@@ -13,6 +13,7 @@ import Forms from './Forms';
 import LiftingStateUp from './LiftingStateUp';
 import CompositionVsInheritance from './CompositionVsInheritance';
 import ThinkingInReact from './ThinkingInReact';
+import UsingTheEffectHook from './UsingTheEffectHook';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -33,6 +34,7 @@ root.render(
       <CompositionVsInheritance />
       <ConditionalRendering />
       <ThinkingInReact />
+      <UsingTheEffectHook />
     </React.StrictMode>
   </>
   // <React.StrictMode>
