@@ -13,7 +13,7 @@ import Forms from './Forms';
 import LiftingStateUp from './LiftingStateUp';
 import CompositionVsInheritance from './CompositionVsInheritance';
 import ThinkingInReact from './ThinkingInReact';
-import UsingTheEffectHook, { VideoComponent, ChatRoom } from './UsingTheEffectHook';
+import UsingTheEffectHook, { VideoComponent, ChatRoom, PuttingItAllTogether, Counter } from './UsingTheEffectHook';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -36,6 +36,8 @@ root.render(
       <ThinkingInReact />
       <VideoComponent />
       <ChatRoom />
+      <PuttingItAllTogether />
+      <Counter />
       <UsingTheEffectHook />
     </React.StrictMode>
   </>

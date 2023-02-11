@@ -87,6 +87,8 @@ function ChatRoom() {
     connection.connect();
 
     // React will call your cleanup function each time before the Effect runs again, and one final time when the component unmounts (gets removed).
+    // If your Effect subscribes to something, the cleanup function should unsubscribe
+    // If your Effect animates something in, the cleanup function should reset the animation to the initial values
     return () => {
       connection.disconnect();
     };
@@ -111,4 +113,117 @@ function createConnection() {
 // In development React remounts every component once immediately after its initial mount.
 // In production, you would only see "✅ Connecting..." printed once. Remounting components only happens in development to help you find Effects that need cleanup.
 
-export { VideoComponent, ChatRoom }
+
+// React always cleans up the previous render’s Effect before the next render’s Effect.
+// This is why even if you type into the input fast, there is at most one timeout scheduled at a time.
+function Playground() {
+  const [text, setText] = useState('a');
+
+  useEffect(() => {
+    function onTimeout() {
+      console.log('⏰ ' + text);
+    }
+
+    console.log('🔵 Schedule "' + text + '" log');
+    const timeoutId = setTimeout(onTimeout, 3000);
+
+    return () => {
+      console.log('🟡 Cancel "' + text + '" log');
+      clearTimeout(timeoutId);
+    };
+  }, [text]);
+
+  return (
+    <>
+      <label>
+        What to log:{' '}
+        <input
+          value={text}
+          onChange={e => setText(e.target.value)}
+        />
+      </label>
+      <h1>{text}</h1>
+    </>
+  );
+}
+
+function PuttingItAllTogether() {
+  const [show, setShow] = useState(false);
+  return (
+    <>
+      <button onClick={() => setShow(!show)}>
+        {show ? 'Unmount' : 'Mount'} the component
+      </button>
+      {show && <hr />}
+      {show && <Playground />}
+    </>
+  );
+}
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    function onTick() {
+      setCount(c => c + 1);
+    }
+
+    const intervalId = setInterval(onTick, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return <h1>{count}</h1>;
+}
+
+// To trigger the bug, things need to happen in this order:
+// Selecting 'Bob' triggers fetchBio('Bob')
+// Selecting 'Taylor' triggers fetchBio('Taylor')
+// Fetching 'Taylor' completes before fetching 'Bob'
+// The Effect from the 'Taylor' render calls setBio('This is Taylor’s bio')
+// Fetching 'Bob' completes
+// The Effect from the 'Bob' render calls setBio('This is Bob’s bio')
+
+// Bugs like this are called race conditions because two asynchronous operations are “racing” with each other, and they might arrive in an unexpected order.
+// function Page() {
+//   const [person, setPerson] = useState('Alice');
+//   const [bio, setBio] = useState(null);
+//   useEffect(() => {
+       // for cleaning up
+//     let ignore = false;
+//     setBio(null);
+//     fetchBio(person).then(result => {
+         // for cleaning up
+//       if (!ignore) {
+//         setBio(result);
+//       }
+//     });
+       // clean up
+//     return () => {
+//       ignore = true;
+//     }
+//   }, [person]);
+
+//   return (
+//     <>
+//       <select value={person} onChange={e => {
+//         setPerson(e.target.value);
+//       }}>
+//         <option value="Alice">Alice</option>
+//         <option value="Bob">Bob</option>
+//         <option value="Taylor">Taylor</option>
+//       </select>
+//       <hr />
+//       <p><i>{bio ?? 'Loading...'}</i></p>
+//     </>
+//   );
+// }
+
+// To fix this race condition, add a cleanup function:
+// Selecting 'Bob' triggers fetchBio('Bob')
+// Selecting 'Taylor' triggers fetchBio('Taylor') and cleans up the previous (Bob’s) Effect
+// Fetching 'Taylor' completes before fetching 'Bob'
+// The Effect from the 'Taylor' render calls setBio('This is Taylor’s bio')
+// Fetching 'Bob' completes
+// The Effect from the 'Bob' render does not do anything because its ignore flag was set to true
+
+export { VideoComponent, ChatRoom, PuttingItAllTogether, Counter }
