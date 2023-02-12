@@ -13,6 +13,7 @@ import Forms from './Forms';
 import LiftingStateUp from './LiftingStateUp';
 import CompositionVsInheritance from './CompositionVsInheritance';
 import ThinkingInReact from './ThinkingInReact';
+import KeepingComponentsPure from './KeepingComponentsPure';
 import UsingTheEffectHook, { VideoComponent, ChatRoom, PuttingItAllTogether, Counter } from './UsingTheEffectHook';
 import reportWebVitals from './reportWebVitals';
 
@@ -38,6 +39,7 @@ root.render(
       <ChatRoom />
       <PuttingItAllTogether />
       <Counter />
+      <KeepingComponentsPure />
       <UsingTheEffectHook />
     </React.StrictMode>
   </>
