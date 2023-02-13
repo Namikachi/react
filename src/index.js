@@ -15,6 +15,7 @@ import CompositionVsInheritance from './CompositionVsInheritance';
 import ThinkingInReact from './ThinkingInReact';
 import KeepingComponentsPure from './KeepingComponentsPure';
 import UsingTheEffectHook, { VideoComponent, ChatRoom, PuttingItAllTogether, Counter } from './UsingTheEffectHook';
+import { Memo, MyApp } from './memo';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -40,6 +41,8 @@ root.render(
       <PuttingItAllTogether />
       <Counter />
       <KeepingComponentsPure />
+      <Memo />
+      <MyApp />
       <UsingTheEffectHook />
     </React.StrictMode>
   </>

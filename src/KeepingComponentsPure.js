@@ -32,3 +32,62 @@ export default function KeepingComponentsPure() {
     </section>
   );
 }
+
+
+// wrong:The problem is that the component changed a preexisting variable while rendering.
+// let guest = 0;
+
+// function Cup() {
+//   // Bad: changing a preexisting variable!
+//   guest = guest + 1;
+//   return <h2>Tea cup for guest #{guest}</h2>;
+// }
+
+// export default function TeaSet() {
+//   return (
+//     <>
+//       <Cup />
+//       <Cup />
+//       <Cup />
+//     </>
+//   );
+// }
+
+// fixed 1:Pure functions don’t mutate variables outside of the function’s scope or objects that were created before the call
+// function Cup({ guest }) {
+//   return <h2>Tea cup for guest #{guest}</h2>;
+// }
+
+// export default function TeaSet() {
+//   return (
+//     <>
+//       <Cup guest={1} />
+//       <Cup guest={2} />
+//       <Cup guest={3} />
+//     </>
+//   );
+// }
+
+// fixed 2
+// function Cup({ guest }) {
+//   return <h2>Tea cup for guest #{guest}</h2>;
+// }
+
+// export default function TeaGathering() {
+//   let cups = [];
+//   for (let i = 1; i <= 12; i++) {
+//     cups.push(<Cup key={i} guest={i} />);
+//   }
+//   return cups;
+// }
+
+// side effects
+// They’re things that happen “on the side”, not during rendering.
+// They usually belong inside event handlers. 
+// Even though event handlers are defined inside your component, they don’t run during rendering!
+// So event handlers don’t need to be pure.
+
+// Why does React care about purity?
+// Your components could run in a different environment
+// You can improve performance by skipping rendering components whose inputs have not changed.
+// If some data changes in the middle of rendering a deep component tree, React can restart rendering without wasting time to finish the outdated render.
