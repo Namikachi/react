@@ -17,6 +17,7 @@ import KeepingComponentsPure from './KeepingComponentsPure';
 import UsingTheEffectHook, { VideoComponent, ChatRoom, PuttingItAllTogether, Counter } from './UsingTheEffectHook';
 import { Memo, MyApp } from './memo';
 import PassingDataDeeplyWithContext from './PassingDataDeeplyWithContext';
+import TaskApp from './ExtractingStateLogicIntoAReducer';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -45,6 +46,7 @@ root.render(
       <Memo />
       <MyApp />
       <PassingDataDeeplyWithContext />
+      <TaskApp />
       <UsingTheEffectHook />
     </React.StrictMode>
   </>
