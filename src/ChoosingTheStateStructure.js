@@ -8,7 +8,7 @@
 // const [position, setPosition] = useState({ x: 0, y: 0 });
 
 import { useState } from 'react';
-
+import { initialTravelPlan } from './places.js';
 
 // -----------------------------
 // Avoid contradictions in state
@@ -123,6 +123,126 @@ function Form() {
 // -----------------------------
 // Avoid duplication in state 
 // -----------------------------
+const initialItems = [
+  { title: 'pretzels', id: 0 },
+  { title: 'crispy seaweed', id: 1 },
+  { title: 'granola bar', id: 2 },
+];
 
+function Menu() {
+  const [items, setItems] = useState(initialItems);
+	// 👎 The contents of the selectedItem is the same object as one of the items inside the items list.
+	// 　 This means that the information about the item itself is duplicated in two places.
+  // const [selectedItem, setSelectedItem] = useState(
+  //   items[0]
+  // );
 
-export { FeedbackForm, Form }
+	// 👍
+	const [selectedId, setSelectedId] = useState(0);
+	const selectedItem = items.find(item =>
+    item.id === selectedId
+  );
+
+	function handleItemChange(id, e) {
+    setItems(items.map(item => {
+      if (item.id === id) {
+        return {
+          ...item,
+          title: e.target.value,
+        };
+      } else {
+        return item;
+      }
+    }));
+  }
+
+  return (
+    <>
+      <h2>What's your travel snack?</h2>
+      <ul>
+        {items.map((item, index) => (
+          <li key={item.id}>
+            <input
+              value={item.title}
+              onChange={e => {
+                handleItemChange(item.id, e)
+              }}
+            />
+            {' '}
+            <button onClick={() => {
+							// setSelectedItem(item);
+              setSelectedId(item.id);
+            }}>Choose</button>
+          </li>
+        ))}
+      </ul>
+      <p>You picked {selectedItem.title}.</p>
+    </>
+  );
+}
+
+// -----------------------------
+// Avoid deeply nested state
+// -----------------------------
+// If the state is too nested to update easily, consider making it “flat”.
+// Here is one way you can restructure this data.
+// Instead of a tree-like structure where each place has an array of its child places,
+// you can have each place hold an array of its child place IDs.
+// Then you can store a mapping from each place ID to the corresponding place.
+function PlaceTree({
+	// place,
+	id,
+	placesById
+ }) {
+  // const childPlaces = place.childPlaces;
+	const place = placesById[id];
+	const childIds = place.childIds;
+  return (
+    <li>
+      {place.title}
+      {/* {childPlaces.length > 0 && ( */}
+			{childIds.length > 0 && (
+        <ol>
+          {/* {childPlaces.map(place => ( */}
+					{childIds.map(childId => (
+          <PlaceTree
+						// key={place.id}
+						// place={place}
+						key={childId}
+						id={childId}
+						placesById={placesById}
+					/>
+          ))}
+        </ol>
+      )}
+    </li>
+  );
+}
+
+function TravelPlan() {
+	const plan = initialTravelPlan;
+  // const planets = plan.childPlaces;
+  const root = plan[0];
+  const planetIds = root.childIds;
+  return (
+    <>
+      <h2>Places to visit</h2>
+      <ol>
+        {/* {planets.map(place => ( */}
+				{planetIds.map(id => (
+          <PlaceTree 
+					// key={place.id}
+					// place={place}
+					key={id}
+					id={id}
+					placesById={plan}
+					/>
+        ))}
+      </ol>
+    </>
+  );
+}
+// You can nest state as much as you like, but making it “flat” can solve numerous problems.
+// It makes state easier to update, and it helps ensure you don’t have duplication in different parts of a nested object.
+
+export { FeedbackForm, Form, Menu, TravelPlan }

@@ -20,7 +20,7 @@ import PassingDataDeeplyWithContext from './PassingDataDeeplyWithContext';
 import TaskApp from './ExtractingStateLogicIntoAReducer';
 import UseRefCounter from './useRef';
 import UseId from './useId';
-import { FeedbackForm } from './ChoosingTheStateStructure';
+import { FeedbackForm, Menu } from './ChoosingTheStateStructure';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -54,6 +54,7 @@ root.render(
       <UseId />
       <FeedbackForm />
       <UsingTheEffectHook />
+      <Menu />
     </React.StrictMode>
   </>
   // <React.StrictMode>
