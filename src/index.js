@@ -21,6 +21,7 @@ import TaskApp from './ExtractingStateLogicIntoAReducer';
 import UseRefCounter from './useRef';
 import UseId from './useId';
 import { FeedbackForm, Menu } from './ChoosingTheStateStructure';
+import UpdatingObjectsInState from './UpdatingObjectsInState';
 import reportWebVitals from './reportWebVitals';
 
 // To render a React element, first pass the DOM element to ReactDOM.createRoot(), then pass the React element to root.render():
@@ -55,6 +56,7 @@ root.render(
       <FeedbackForm />
       <UsingTheEffectHook />
       <Menu />
+      <UpdatingObjectsInState />
     </React.StrictMode>
   </>
   // <React.StrictMode>
