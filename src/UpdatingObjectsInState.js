@@ -1,9 +1,11 @@
 // When you want to update an object, you need to create a new one (or make a copy of an existing one), and then set the state to use that copy.
 // In other words, you should treat any JavaScript object that you put into state as read-only.
-import { useState } from 'react';
+// import { useState } from 'react';
+import { useImmer } from 'use-immer';
 
 export default function UpdatingObjectsInState() {
-  const [person, setPerson] = useState({
+  // const [person, setPerson] = useState({
+  const [person, updatePerson] = useImmer({
     firstName: 'Barbara',
     lastName: 'Hepworth',
     email: 'bhepworth@sculpture.com',
@@ -23,53 +25,71 @@ export default function UpdatingObjectsInState() {
   //   email: person.email
   // });
   function handleFirstNameChange(e) {
-    setPerson({
-      ...person,
-      firstName: e.target.value
+    // setPerson({
+    //   ...person,
+    //   firstName: e.target.value
+    // });
+    updatePerson(draft => {
+      draft.firstName = e.target.value;
     });
   }
 
   function handleLastNameChange(e) {
-    setPerson({
-      ...person,
-      lastName: e.target.value
+    // setPerson({
+    //   ...person,
+    //   lastName: e.target.value
+    // });
+    updatePerson(draft => {
+      draft.lastName = e.target.value;
     });
   }
 
   function handleEmailChange(e) {
-    setPerson({
-      ...person,
-      email: e.target.value
+    // setPerson({
+    //   ...person,
+    //   email: e.target.value
+    // });
+    updatePerson(draft => {
+      draft.email = e.target.value;
     });
   }
 
   function handleTitleChange(e) {
-    setPerson({
-      ...person,
-      artwork: {
-        ...person.artwork,
-        title: e.target.value
-      }
+    // setPerson({
+    //   ...person,
+    //   artwork: {
+    //     ...person.artwork,
+    //     title: e.target.value
+    //   }
+    // });
+    updatePerson(draft => {
+      draft.artwork.title = e.target.value;
     });
   }
 
   function handleCityChange(e) {
-    setPerson({
-      ...person,
-      artwork: {
-        ...person.artwork,
-        city: e.target.value
-      }
+    // setPerson({
+    //   ...person,
+    //   artwork: {
+    //     ...person.artwork,
+    //     city: e.target.value
+    //   }
+    // });
+    updatePerson(draft => {
+      draft.artwork.city = e.target.value;
     });
   }
 
   function handleImageChange(e) {
-    setPerson({
-      ...person,
-      artwork: {
-        ...person.artwork,
-        image: e.target.value
-      }
+    // setPerson({
+    //   ...person,
+    //   artwork: {
+    //     ...person.artwork,
+    //     image: e.target.value
+    //   }
+    // });
+    updatePerson(draft => {
+      draft.artwork.image = e.target.value;
     });
   }
 
@@ -132,7 +152,7 @@ export default function UpdatingObjectsInState() {
       <p>
         <i>{person.artwork.title}</i>
         {' by '}
-        {person.name}
+        {person.firstName}
         <br />
         (located in {person.artwork.city})
       </p>
