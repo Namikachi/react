@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-let nextId = 0;
+let nextIdg = 0;
 
 export default function List() {
   const [name, setName] = useState('');
@@ -24,7 +24,7 @@ export default function List() {
 				// push()
         setArtists([
           ...artists, // that contains all the old items
-          { id: nextId++, name: name } // and one new item at the end
+          { id: nextIdg++, name: name } // and one new item at the end
         ]);
 				// unshift()
 				// setArtists([
@@ -218,4 +218,133 @@ function ListC() {
   );
 }
 
-export { ListArray, ShapeEditor, CounterList, ListC }
+// Making other changes to an array
+// reverse or sort → copy the array first, and then make changes to it
+const initialList = [
+  { id: 0, title: 'Big Bellies' },
+  { id: 1, title: 'Lunar Landscape' },
+  { id: 2, title: 'Terracotta Army' },
+];
+
+function ListChanges() {
+  const [list, setList] = useState(initialList);
+
+  function handleClick() {
+    const nextList = [...list];
+    nextList.reverse();
+    setList(nextList);
+  }
+
+  return (
+    <>
+      <button onClick={handleClick}>
+        Reverse
+      </button>
+      <ul>
+        {list.map(artwork => (
+          <li key={artwork.id}>{artwork.title}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
+// Updating objects inside arrays
+function BucketList() {
+  const [myList, setMyList] = useState(initialList);
+  const [yourList, setYourList] = useState(
+    initialList
+  );
+
+  function handleToggleMyList(artworkId, nextSeen) {
+    // const myNextList = [...myList];
+    // const artwork = myNextList.find(
+    //   a => a.id === artworkId
+    // );
+    // artwork.seen = nextSeen;
+    // setMyList(myNextList);
+		setMyList(myList.map(artwork => {
+			if (artwork.id === artworkId) {
+				// Create a *new* object with changes
+				return { ...artwork, seen: nextSeen };
+			} else {
+				// No changes
+				return artwork;
+			}
+		}));
+		// useImmer
+		// updateMyList(draft => {
+    //   const artwork = draft.find(a =>
+    //     a.id === id
+    //   );
+    //   artwork.seen = nextSeen;
+    // });
+  }
+
+  function handleToggleYourList(artworkId, nextSeen) {
+    // const yourNextList = [...yourList];
+    // const artwork = yourNextList.find(
+    //   a => a.id === artworkId
+    // );
+    // artwork.seen = nextSeen;
+    // setYourList(yourNextList);
+		setYourList(yourList.map(artwork => {
+      if (artwork.id === artworkId) {
+        // Create a *new* object with changes
+        return { ...artwork, seen: nextSeen };
+      } else {
+        // No changes
+        return artwork;
+      }
+    }));
+		// useImmer
+		// updateYourList(draft => {
+    //   const artwork = draft.find(a =>
+    //     a.id === artworkId
+    //   );
+    //   artwork.seen = nextSeen;
+    // });
+  }
+
+  return (
+    <>
+      <h1>Art Bucket List</h1>
+      <h2>My list of art to see:</h2>
+      <ItemList
+        artworks={myList}
+        onToggle={handleToggleMyList} />
+      <h2>Your list of art to see:</h2>
+      <ItemList
+        artworks={yourList}
+        onToggle={handleToggleYourList} />
+    </>
+  );
+}
+
+function ItemList({ artworks, onToggle }) {
+  return (
+    <ul>
+      {artworks.map(artwork => (
+        <li key={artwork.id}>
+          <label>
+            <input
+              type="checkbox"
+              checked={artwork.seen}
+              onChange={e => {
+                onToggle(
+                  artwork.id,
+                  e.target.checked
+                );
+              }}
+            />
+            {artwork.title}
+          </label>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+// Write concise update logic with Immer
+
+export { ListArray, ShapeEditor, CounterList, ListC, ListChanges, BucketList }
